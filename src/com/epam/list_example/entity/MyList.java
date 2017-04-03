@@ -1,7 +1,5 @@
 package com.epam.list_example.entity;
 
-import java.util.NoSuchElementException;
-
 public class MyList {
 	private Node node;
 	private Node linkPrev;
@@ -14,34 +12,50 @@ public class MyList {
 		size = 0;
 	}
 
-	public void addElement(Object o) {
+	public boolean addElement(Object o) {
 		if (size == 0) {
 			node.setElement(o);
 			first = node;
+			size++;
+			last = node;
+			return true;
+		} else {
+			if (size > 0) {
+				Node current = new Node(o, null);
+				node.setNext(current);
+				node = current;
+				size++;
+				last = node;
+				return true;
+			} else {
+				return false;
+			}
 		}
-		if (size > 0) {
-			Node current = new Node(o, null);
-			node.setNext(current);
-			node = current;
-		}
-		size++;
-		last = node;
 	}
 
-	public void addElement(int index, Object o) {
+	public boolean addElement(int index, Object o) {
 		if (index >= 0 && index <= (size - 1)) {
 			Node prevNode = findElement(index);
 			Node currentNode = new Node(o, prevNode.getNext());
 			prevNode.setNext(currentNode);
 			size++;
-		} else
-			throw new IndexOutOfBoundsException();
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	public void addFirst(Object o) {
-		Node current = new Node(o, first);
-		first = current;
-		size++;
+	public boolean addFirst(Object o) {
+		if (size > 0) {
+			Node current = new Node(o, first);
+			first = current;
+			size++;
+			return true;
+		} else if (addElement(o)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public Node findElement(int index) {
@@ -51,11 +65,13 @@ public class MyList {
 				linkPrev = current;
 				current = current.getNext();
 			}
-			if (index == 0)
+			if (index == 0) {
 				linkPrev = null;
+			}
 			return current;
-		} else
-			throw new IndexOutOfBoundsException();
+		} else {
+			return null;
+		}
 	}
 
 	public Node findElement(Object o) {
@@ -63,31 +79,35 @@ public class MyList {
 		Node foundItem = null;
 		int i = 0;
 		do {
-			if (current.getElement().equals(o))
+			if (current.getElement().equals(o)) {
 				foundItem = current;
-			else {
+			} else {
 				linkPrev = current;
 				current = current.getNext();
 				i++;
 			}
 		} while (foundItem == null && i < size);
-		if (foundItem != null)
+		if (foundItem != null) {
 			return foundItem;
-		else
-			throw new NoSuchElementException();
+		} else {
+			return null;
+		}
 	}
 
-	public void removeElement(int index) {
+	public boolean removeElement(int index) {
 		if (index >= 0 && index < size) {
 			Node currentNode = findElement(index);
 			Node nextNode = currentNode.getNext();
-			if (linkPrev != null)
+			if (linkPrev != null) {
 				linkPrev.setNext(nextNode);
+			}
 			first = nextNode;
 			currentNode = null;
 			size--;
-		} else
-			throw new IndexOutOfBoundsException();
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public Node getFirst() {
@@ -109,12 +129,13 @@ public class MyList {
 	public int getSize() {
 		return size;
 	}
-	public void printList () {
+
+	public void printList() {
 		Node a = first;
-		while (a.getNext()!=null) {
+		while (a.getNext() != null) {
 			System.out.println(a);
-			a=a.getNext();
-		} 
+			a = a.getNext();
+		}
 		System.out.println(a);
 	}
 

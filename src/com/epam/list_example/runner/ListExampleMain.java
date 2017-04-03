@@ -6,8 +6,10 @@ public class ListExampleMain {
 
 	public static void main(String[] args) {
 		MyList list = new MyList();
+		list.addFirst("1");
 		list.addElement("a");
 		list.addElement("b");
+		list.addFirst("1");
 		list.addElement("c");
 		list.printList();
 		System.out.println("---");
@@ -20,5 +22,6 @@ public class ListExampleMain {
 		System.out.println("---");
 		list.removeElement(0);
 		list.printList();
+		
 	}
 }
