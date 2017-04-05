@@ -1,13 +1,13 @@
 package com.epam.list_example.entity;
 
-public class MyList {
+public class ListExample {
 	private Node node;
 	private Node linkPrev;
 	private Node first;
 	private Node last;
 	private int size;
 
-	public MyList() {
+	public ListExample() {
 		node = new Node();
 		size = 0;
 	}
@@ -158,7 +158,7 @@ public class MyList {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MyList other = (MyList) obj;
+		ListExample other = (ListExample) obj;
 		if (first == null) {
 			if (other.first != null)
 				return false;

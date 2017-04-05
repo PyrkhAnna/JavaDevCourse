@@ -1,11 +1,11 @@
 package com.epam.list_example.runner;
 
-import com.epam.list_example.entity.MyList;
+import com.epam.list_example.entity.ListExample;
 
 public class ListExampleMain {
 
 	public static void main(String[] args) {
-		MyList list = new MyList();
+		ListExample list = new ListExample();
 		list.addFirst("1");
 		list.addElement("a");
 		list.addElement("b");
